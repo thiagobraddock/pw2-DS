@@ -1,19 +1,23 @@
 <?php
-include_once('helpers.php');
+require_once('helpers.php');
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "pwii";
+$dbname = "pw2";
 $conexao = new mysqli($servername, $username, $password, $dbname);
 if ($conexao->connect_error) {
   die("Connection failed: " . $conexao->connect_error);
 }
 
-if(isset($_POST))
+if(isset($_POST['btnAtualizar']))
 {
   extract($_POST);
-  $sql = "UPDATE amigo SET nome = '{$txtNome}', apelido = '{$txtApelido}', email = '{$txtEmail}' WHERE idamigo = {$txtID}";
+  $sql = "UPDATE amigo SET 
+                nome = '{$txtNome}', 
+                apelido = '{$txtApelido}', 
+                email = '{$txtEmail}' 
+          WHERE idamigo = {$txtID}";
 }
 
 ?>
@@ -34,10 +38,12 @@ if(isset($_POST))
     <?php
 
     if ($conexao->query($sql) === FALSE) {
-      alert('Erro ao atualizar Registro', 'red');
+      alert('Erro ao atualizar', 'red');
+      exit;
     } 
 
-    alert('Registro Atualizado com Sucesso', 'blue');
+    alert('Registro Atualizado com Sucesso', 'purple');
+
     $conexao->close();
     ?>
   </div>

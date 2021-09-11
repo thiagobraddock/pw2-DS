@@ -2,7 +2,7 @@
   $servername = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "pwii";
+  $dbname = "pw2";
   $conexao = new mysqli($servername, $username, $password, $dbname);
   if ($conexao->connect_error) {
     die("Connection failed: " . $conexao->connect_error);
@@ -31,7 +31,7 @@
   <h1 class="w3-center w3-teal w3-round-large">Listagem de Amigos</h1>
   <table class="w3-table-all w3-centered">
     <thead>
-      <tr class="w3-center w3-teal">
+      <tr class="w3-center w3-orange">
         <th>Código</th>
         <th>Nome</th>
         <th>Apelido</th>
@@ -42,9 +42,14 @@
     </thead>
 TABLE;
   echo $tableHead;
+  // query
   $sql = "SELECT * FROM amigo";
   $resultado = $conexao->query($sql);
-  if ($resultado != null)
+  if ($resultado->num_rows < 1)
+  {
+    echo '<h2>😭 Você não tem amigos cadastrados ainda ...</h2>';
+    exit;
+  }
   // dados da tabela
     foreach ($resultado as $linha) {
       echo '<tr>';
